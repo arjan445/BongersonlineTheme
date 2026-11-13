@@ -16,6 +16,21 @@
 		});
 	}
 
+	// Lightbox voor projectfoto's
+	var lb = document.getElementById('projectLightbox');
+	if (lb) {
+		var items = lb.querySelectorAll('.carousel-item');
+		document.querySelectorAll('[data-bo-lightbox]').forEach(function (a) {
+			a.addEventListener('click', function (e) {
+				if (!window.bootstrap) return;
+				e.preventDefault();
+				var i = parseInt(a.getAttribute('data-bo-lightbox'), 10) || 0;
+				items.forEach(function (it, n) { it.classList.toggle('active', n === i); });
+				window.bootstrap.Modal.getOrCreateInstance(lb).show();
+			});
+		});
+	}
+
 	// Actieve sectie in de inhoudsopgave markeren
 	var links = document.querySelectorAll('.toc a[href^="#"]');
 	if (links.length && 'IntersectionObserver' in window) {

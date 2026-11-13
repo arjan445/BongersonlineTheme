@@ -7,7 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BO_VERSION', '1.3.0' );
+define( 'BO_VERSION', '1.4.0' );
+
+require_once get_template_directory() . '/inc/projects.php';
 
 /* ------------------------------------------------------------------
  * Thema-instellingen
@@ -110,6 +112,14 @@ add_action( 'init', function () {
 add_action( 'after_switch_theme', function () {
 	flush_rewrite_rules();
 } );
+
+/* Rewrite-regels verversen na een thema-update */
+add_action( 'init', function () {
+	if ( get_option( 'bo_rewrite_version' ) !== BO_VERSION ) {
+		flush_rewrite_rules();
+		update_option( 'bo_rewrite_version', BO_VERSION );
+	}
+}, 99 );
 
 /* Icoon + volgorde velden bij onderwerpen */
 function bo_term_fields( $term = null ) {
@@ -217,7 +227,7 @@ add_action( 'pre_get_posts', function ( $q ) {
 		return;
 	}
 	if ( $q->is_search() ) {
-		$q->set( 'post_type', array( 'handleiding', 'page' ) );
+		$q->set( 'post_type', array( 'handleiding', 'project', 'page' ) );
 	}
 	if ( $q->is_post_type_archive( 'handleiding' ) || $q->is_tax( 'onderwerp' ) ) {
 		$q->set( 'posts_per_page', 100 );
@@ -291,6 +301,7 @@ class BO_Nav_Walker extends Walker_Nav_Menu {
 function bo_fallback_menu() {
 	echo '<ul class="navbar-nav ms-auto">';
 	echo '<li class="nav-item"><a class="nav-link" href="' . esc_url( home_url( '/' ) ) . '">Home</a></li>';
+	echo '<li class="nav-item"><a class="nav-link" href="' . esc_url( get_post_type_archive_link( 'project' ) ) . '">Projecten</a></li>';
 	echo '<li class="nav-item"><a class="nav-link" href="' . esc_url( get_post_type_archive_link( 'handleiding' ) ) . '">Helpdesk</a></li>';
 	$contact = get_page_by_path( 'contact' );
 	if ( $contact && 'publish' === $contact->post_status ) {

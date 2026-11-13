@@ -9,6 +9,9 @@ Eigen thema voor [bongersonline.nl](https://bongersonline.nl), gebouwd op Bootst
   - Overzicht op `/handleidingen/`, per onderwerp op `/handleidingen/onderwerp/<slug>/`, losse handleidingen op `/handleiding/<slug>/`.
   - Per handleiding: automatische inhoudsopgave (h2), leestijd, printknop, gerelateerde handleidingen.
   - Nieuwe handleidingen starten met een vaste opzet (blocksjabloon).
+- **Projecten**: berichttype `project` met taxonomie `installatietype` (`inc/projects.php`).
+  - Per project een opdrachtgever, plaats, hoofdfoto en extra foto's (metabox "Projectgegevens"). De foto-volgorde kun je wijzigen door te slepen.
+  - Overzicht op `/projecten/` met een filter per type, losse projecten op `/project/<slug>/` met een lightbox. De homepage toont de drie nieuwste projecten.
 - **Blokstijlen** voor de editor: *Stappen* (genummerde lijst), *Tip*, *Let op*, *Info*, *Vinkjes*, *Intro*.
 - **Customizer**
   - *Homepage slider*: 5 slides van 1920 × 600 met titel, tekst en knop.
@@ -30,6 +33,8 @@ Eigen thema voor [bongersonline.nl](https://bongersonline.nl), gebouwd op Bootst
 | `front-page.php` | Homepage |
 | `archive-handleiding.php`, `taxonomy-onderwerp.php` | Helpdesk-overzicht |
 | `single-handleiding.php` | Losse handleiding |
+| `inc/projects.php` | Projecten: berichttype, type installatie, metabox, fotogalerij |
+| `archive-project.php`, `taxonomy-installatietype.php`, `single-project.php` | Projectoverzicht en losse projecten |
 | `page.php`, `index.php`, `search.php`, `404.php` | Overige templates |
 | `header.php`, `footer.php`, `template-parts/` | Gedeelde onderdelen |
 | `style.css`, `editor-style.css`, `assets/site.js` | Opmaak en scripts |

@@ -85,6 +85,29 @@ while ( have_posts() ) :
 endwhile;
 ?>
 
+<?php
+$bo_projects = new WP_Query( array( 'post_type' => 'project', 'posts_per_page' => 3, 'no_found_rows' => true ) );
+if ( $bo_projects->have_posts() ) :
+	?>
+	<section class="pb-5 home-projects">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-end mb-4">
+				<h2 class="section-title mb-0">Recente projecten</h2>
+				<a class="fw-semibold" href="<?php echo esc_url( get_post_type_archive_link( 'project' ) ); ?>">Alle projecten</a>
+			</div>
+			<div class="row g-4">
+				<?php
+				while ( $bo_projects->have_posts() ) :
+					$bo_projects->the_post();
+					get_template_part( 'template-parts/project-card' );
+				endwhile;
+				wp_reset_postdata();
+				?>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
+
 <section class="home-helpdesk bg-soft py-5">
 	<div class="container py-lg-3">
 		<div class="row g-4 g-lg-5 align-items-center">
