@@ -49,10 +49,10 @@ while ( have_posts() ) :
 					<?php if ( $gallery ) : ?>
 						<h2 class="h4 fw-bold mt-5 mb-3">Foto's</h2>
 						<div class="row g-3 project-gallery">
-							<?php foreach ( $gallery as $n => $id ) : ?>
+							<?php foreach ( $gallery as $n => $img_id ) : ?>
 								<div class="col-6 col-md-4">
-									<a href="<?php echo esc_url( wp_get_attachment_image_url( $id, 'full' ) ); ?>" data-bo-lightbox="<?php echo (int) ( $n + $offset ); ?>">
-										<?php echo wp_get_attachment_image( $id, 'medium_large', false, array( 'loading' => 'lazy' ) ); ?>
+									<a href="<?php echo esc_url( wp_get_attachment_image_url( $img_id, 'full' ) ); ?>" data-bo-lightbox="<?php echo (int) ( $n + $offset ); ?>">
+										<?php echo wp_get_attachment_image( $img_id, 'medium_large', false, array( 'loading' => 'lazy' ) ); ?>
 									</a>
 								</div>
 							<?php endforeach; ?>
@@ -84,13 +84,13 @@ while ( have_posts() ) :
 			</div>
 
 			<?php
-			$more = new WP_Query( array(
+			$bo_more = new WP_Query( array(
 				'post_type'      => 'project',
 				'posts_per_page' => 3,
 				'post__not_in'   => array( get_the_ID() ),
 				'no_found_rows'  => true,
 			) );
-			if ( $more->have_posts() ) :
+			if ( $bo_more->have_posts() ) :
 				?>
 				<div class="mt-5 pt-3">
 					<div class="d-flex justify-content-between align-items-end mb-3">
@@ -99,8 +99,8 @@ while ( have_posts() ) :
 					</div>
 					<div class="row g-4">
 						<?php
-						while ( $more->have_posts() ) :
-							$more->the_post();
+						while ( $bo_more->have_posts() ) :
+							$bo_more->the_post();
 							get_template_part( 'template-parts/project-card' );
 						endwhile;
 						wp_reset_postdata();
@@ -118,9 +118,9 @@ while ( have_posts() ) :
 					<button type="button" class="btn-close btn-close-white ms-auto mb-2" data-bs-dismiss="modal" aria-label="Sluiten"></button>
 					<div id="projectCarousel" class="carousel slide">
 						<div class="carousel-inner">
-							<?php foreach ( $all as $n => $id ) : ?>
+							<?php foreach ( $all as $n => $img_id ) : ?>
 								<div class="carousel-item<?php echo 0 === $n ? ' active' : ''; ?>">
-									<?php echo wp_get_attachment_image( $id, 'full', false, array( 'class' => 'd-block mx-auto', 'loading' => 'lazy' ) ); ?>
+									<?php echo wp_get_attachment_image( $img_id, 'full', false, array( 'class' => 'd-block mx-auto', 'loading' => 'lazy' ) ); ?>
 								</div>
 							<?php endforeach; ?>
 						</div>
