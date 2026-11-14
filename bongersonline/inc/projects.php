@@ -32,7 +32,7 @@ add_action( 'init', function () {
 		'menu_icon'     => 'dashicons-portfolio',
 		'menu_position' => 6,
 		'show_in_rest'  => true,
-		'supports'      => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+		'supports'      => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields' ),
 		'template'      => array(
 			array( 'core/paragraph', array( 'placeholder' => 'Korte beschrijving: wat was de vraag en wat is er gedaan?' ) ),
 		),
