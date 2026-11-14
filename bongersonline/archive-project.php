@@ -54,5 +54,6 @@ $types  = get_terms( array( 'taxonomy' => 'installatietype', 'hide_empty' => tru
 		<?php endif; ?>
 	</div>
 </section>
+<?php echo bo_clients_html(); // phpcs:ignore ?>
 <?php
 get_footer();

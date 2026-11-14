@@ -108,6 +108,8 @@ if ( $bo_projects->have_posts() ) :
 	</section>
 <?php endif; ?>
 
+<?php echo bo_clients_html(); // phpcs:ignore ?>
+
 <section class="home-helpdesk bg-soft py-5">
 	<div class="container py-lg-3">
 		<div class="row g-4 g-lg-5 align-items-center">

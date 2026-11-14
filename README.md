@@ -12,6 +12,7 @@ Eigen thema voor [bongersonline.nl](https://bongersonline.nl), gebouwd op Bootst
 - **Projecten**: berichttype `project` met taxonomie `installatietype` (`inc/projects.php`).
   - Per project een opdrachtgever, plaats, hoofdfoto en extra foto's (metabox "Projectgegevens"). De foto-volgorde kun je wijzigen door te slepen.
   - Overzicht op `/projecten/` met een filter per type, losse projecten op `/project/<slug>/` met een lightbox. De homepage toont de drie nieuwste projecten.
+- **Opdrachtgevers**: berichttype `opdrachtgever` met naam, logo (uitgelichte afbeelding), optionele website en volgorde (`inc/clients.php`). Ze worden getoond als logoband op de homepage en onder de projecten; vanaf 5 logo's loopt de band door. Elders te plaatsen met de shortcode `[bo_opdrachtgevers titel="..."]`.
 - **Blokstijlen** voor de editor: *Stappen* (genummerde lijst), *Tip*, *Let op*, *Info*, *Vinkjes*, *Intro*.
 - **Customizer**
   - *Homepage slider*: 5 slides van 1920 × 600 met titel, tekst en knop.
@@ -33,6 +34,7 @@ Eigen thema voor [bongersonline.nl](https://bongersonline.nl), gebouwd op Bootst
 | `front-page.php` | Homepage |
 | `archive-handleiding.php`, `taxonomy-onderwerp.php` | Helpdesk-overzicht |
 | `single-handleiding.php` | Losse handleiding |
+| `inc/clients.php` | Opdrachtgevers en de logoband |
 | `inc/projects.php` | Projecten: berichttype, type installatie, metabox, fotogalerij |
 | `archive-project.php`, `taxonomy-installatietype.php`, `single-project.php` | Projectoverzicht en losse projecten |
 | `page.php`, `index.php`, `search.php`, `404.php` | Overige templates |
