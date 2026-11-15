@@ -258,7 +258,7 @@ h1, h2, h3, .section-title, .hero h1, .page-hero h1, .home-blocks h2, .slide-tit
 .project-facts { border: 1px solid var(--bo-border); border-radius: .5rem; padding: 1.5rem; background: #f6f7f9; position: sticky; top: 90px; }
 .project-facts dt { font-size: .82rem; color: var(--bo-muted); font-weight: 600; }
 .project-facts dd { margin-bottom: .9rem; }
-#projectLightbox .carousel-item img { max-height: 85vh; width: auto; max-width: 100%; border-radius: .35rem; }
+#projectLightbox .carousel-item img { width: auto; height: auto; max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: .35rem; }
 #projectLightbox .modal-backdrop, .modal-backdrop.show { opacity: .85; }
 
 /* Opdrachtgevers (logoband) */
