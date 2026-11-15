@@ -3,7 +3,7 @@ Theme Name: Bongersonline
 Theme URI: https://bongersonline.nl
 Author: Bongersonline
 Description: Licht Bootstrap 5 thema voor bongersonline.nl met een kennisbank voor klant-handleidingen.
-Version: 1.6.3
+Version: 1.6.4
 Requires at least: 6.4
 Requires PHP: 7.4
 Text Domain: bongersonline
@@ -281,3 +281,6 @@ h1, h2, h3, .section-title, .hero h1, .page-hero h1, .home-blocks h2, .slide-tit
 .project-gallery a { border: 1px solid var(--bo-border); box-shadow: 0 4px 14px rgba(11,31,58,.07); }
 .project-thumb { border-bottom: 1px solid var(--bo-border); }
 .project-card { box-shadow: 0 4px 14px rgba(11,31,58,.05); }
+
+/* Actief item in lijsten in de huisstijlkleur */
+.list-group { --bs-list-group-active-bg: var(--bo-primary); --bs-list-group-active-border-color: var(--bo-primary); }

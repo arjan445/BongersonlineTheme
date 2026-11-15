@@ -18,7 +18,7 @@ $term   = $is_tax ? get_queried_object() : null;
 		</nav>
 		<div class="d-flex align-items-center gap-3">
 			<?php if ( $is_tax ) : ?>
-				<span class="topic-icon bg-white"><i class="bi bi-<?php echo esc_attr( bo_topic_icon( $term ) ); ?>"></i></span>
+				<span class="topic-icon"><i class="bi bi-<?php echo esc_attr( bo_topic_icon( $term ) ); ?>"></i></span>
 			<?php endif; ?>
 			<h1 class="mb-0"><?php echo $is_tax ? esc_html( $term->name ) : 'Helpdesk'; ?></h1>
 		</div>
@@ -56,7 +56,10 @@ $term   = $is_tax ? get_queried_object() : null;
 					<div class="p-5 text-center rounded-4 bg-soft">
 						<i class="bi bi-hourglass-split fs-1 text-primary"></i>
 						<h2 class="h5 mt-3">Hier komen binnenkort handleidingen</h2>
-						<p class="text-secondary mb-0">We zijn ermee bezig. Heb je nu al een vraag? Neem dan contact op.</p>
+						<p class="text-secondary mb-3">We zijn ermee bezig. Heb je nu al een vraag? Dan helpen we je graag verder.</p>
+						<?php $bo_c = bo_contact_url(); if ( $bo_c ) : ?>
+							<a class="btn btn-primary" href="<?php echo esc_url( $bo_c ); ?>"><i class="bi bi-chat-text me-1"></i>Neem contact op</a>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			</div>

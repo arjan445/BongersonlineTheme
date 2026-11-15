@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BO_VERSION', '1.6.3' );
+define( 'BO_VERSION', '1.6.4' );
 
 require_once get_template_directory() . '/inc/projects.php';
 require_once get_template_directory() . '/inc/clients.php';

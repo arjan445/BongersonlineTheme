@@ -49,7 +49,10 @@ $types  = get_terms( array( 'taxonomy' => 'installatietype', 'hide_empty' => tru
 			<div class="p-5 text-center rounded-4 bg-soft">
 				<i class="bi bi-images fs-1 text-primary"></i>
 				<h2 class="h5 mt-3">Hier komen binnenkort projecten</h2>
-				<p class="text-secondary mb-0">Benieuwd wat er mogelijk is? Neem gerust contact op.</p>
+				<p class="text-secondary mb-3">Benieuwd wat er mogelijk is?</p>
+				<?php $bo_c = bo_contact_url(); if ( $bo_c ) : ?>
+					<a class="btn btn-primary" href="<?php echo esc_url( $bo_c ); ?>"><i class="bi bi-chat-text me-1"></i>Neem contact op</a>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 	</div>
