@@ -8,7 +8,6 @@ while ( have_posts() ) :
 	$thumb   = get_post_thumbnail_id();
 	$gallery = array_values( array_diff( bo_project_gallery_ids(), array( $thumb ) ) );
 	$all     = $thumb ? array_merge( array( $thumb ), $gallery ) : $gallery;
-	$offset  = $thumb ? 1 : 0;
 	$contact = bo_contact_url();
 	?>
 	<section class="page-hero">
@@ -38,20 +37,15 @@ while ( have_posts() ) :
 		<div class="container">
 			<div class="row g-4 g-lg-5">
 				<div class="col-lg-8">
-					<?php if ( $thumb ) : ?>
-						<a class="project-hero-img mb-4" href="<?php echo esc_url( wp_get_attachment_image_url( $thumb, 'full' ) ); ?>" data-bo-lightbox="0">
-							<?php echo wp_get_attachment_image( $thumb, 'large', false, array( 'loading' => 'eager' ) ); ?>
-						</a>
-					<?php endif; ?>
 					<div class="guide-content">
 						<?php the_content(); ?>
 					</div>
-					<?php if ( $gallery ) : ?>
+					<?php if ( $all ) : ?>
 						<h2 class="h4 fw-bold mt-5 mb-3">Foto's</h2>
 						<div class="row g-3 project-gallery">
-							<?php foreach ( $gallery as $n => $img_id ) : ?>
+							<?php foreach ( $all as $n => $img_id ) : ?>
 								<div class="col-6 col-md-4">
-									<a href="<?php echo esc_url( wp_get_attachment_image_url( $img_id, 'full' ) ); ?>" data-bo-lightbox="<?php echo (int) ( $n + $offset ); ?>">
+									<a href="<?php echo esc_url( wp_get_attachment_image_url( $img_id, 'full' ) ); ?>" data-bo-lightbox="<?php echo (int) $n; ?>">
 										<?php echo wp_get_attachment_image( $img_id, 'medium_large', false, array( 'loading' => 'lazy' ) ); ?>
 									</a>
 								</div>
