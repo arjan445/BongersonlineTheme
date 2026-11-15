@@ -55,7 +55,7 @@ add_action( 'init', function () {
 		'rewrite'           => array( 'slug' => 'projecten/type', 'with_front' => false ),
 	) );
 
-	foreach ( array( 'bo_client', 'bo_place', 'bo_gallery' ) as $key ) {
+	foreach ( array( 'bo_client', 'bo_place', 'bo_gallery', 'bo_featured' ) as $key ) {
 		register_post_meta( 'project', $key, array(
 			'type'              => 'string',
 			'single'            => true,
@@ -90,6 +90,28 @@ function bo_project_gallery_ids( $post_id = null ) {
 	return array_values( array_filter( $ids, 'wp_attachment_is_image' ) );
 }
 
+/**
+ * Query-argumenten: uitgelichte projecten eerst, daarna nieuwste eerst.
+ * Projecten zonder de instelling tellen als niet uitgelicht.
+ */
+function bo_project_order_args() {
+	return array(
+		'bo_featured_first' => 1,
+		'orderby'           => 'date',
+		'order'             => 'DESC',
+	);
+}
+
+add_filter( 'posts_clauses', function ( $clauses, $q ) {
+	if ( ! $q->get( 'bo_featured_first' ) ) {
+		return $clauses;
+	}
+	global $wpdb;
+	$clauses['join']   .= " LEFT JOIN {$wpdb->postmeta} AS bo_fm ON ( bo_fm.post_id = {$wpdb->posts}.ID AND bo_fm.meta_key = 'bo_featured' )";
+	$clauses['orderby'] = "( COALESCE( bo_fm.meta_value, '0' ) = '1' ) DESC" . ( $clauses['orderby'] ? ', ' . $clauses['orderby'] : '' );
+	return $clauses;
+}, 10, 2 );
+
 function bo_project_types( $post_id = null ) {
 	$terms = get_the_terms( $post_id ? $post_id : get_the_ID(), 'installatietype' );
 	return ( $terms && ! is_wp_error( $terms ) ) ? $terms : array();
@@ -107,7 +129,12 @@ function bo_project_metabox( $post ) {
 	$client = get_post_meta( $post->ID, 'bo_client', true );
 	$place  = get_post_meta( $post->ID, 'bo_place', true );
 	$ids    = bo_project_gallery_ids( $post->ID );
+	$feat   = get_post_meta( $post->ID, 'bo_featured', true );
 	?>
+	<p>
+		<label><input type="checkbox" name="bo_featured" value="1" <?php checked( '1', $feat ); ?>> <strong>Uitgelicht project</strong></label><br>
+		<span class="description">Uitgelichte projecten staan vooraan in het overzicht en op de homepage.</span>
+	</p>
 	<p>
 		<label for="bo_client"><strong>Opdrachtgever</strong></label><br>
 		<input type="text" id="bo_client" name="bo_client" value="<?php echo esc_attr( $client ); ?>" class="widefat" placeholder="Bijv. Bakkerij Jansen (leeg laten om niet te tonen)">
@@ -138,6 +165,7 @@ add_action( 'save_post_project', function ( $post_id ) {
 		return;
 	}
 	update_post_meta( $post_id, 'bo_client', sanitize_text_field( wp_unslash( isset( $_POST['bo_client'] ) ? $_POST['bo_client'] : '' ) ) );
+	update_post_meta( $post_id, 'bo_featured', empty( $_POST['bo_featured'] ) ? '0' : '1' );
 	update_post_meta( $post_id, 'bo_place', sanitize_text_field( wp_unslash( isset( $_POST['bo_place'] ) ? $_POST['bo_place'] : '' ) ) );
 	$raw = sanitize_text_field( wp_unslash( isset( $_POST['bo_gallery'] ) ? $_POST['bo_gallery'] : '' ) );
 	$ids = array_filter( array_map( 'absint', explode( ',', $raw ) ) );
@@ -194,6 +222,7 @@ add_filter( 'manage_project_posts_columns', function ( $cols ) {
 	foreach ( $cols as $k => $v ) {
 		$new[ $k ] = $v;
 		if ( 'title' === $k ) {
+			$new['bo_featured'] = 'Uitgelicht';
 			$new['bo_place']  = 'Plaats';
 			$new['bo_client'] = 'Opdrachtgever';
 		}
@@ -201,6 +230,9 @@ add_filter( 'manage_project_posts_columns', function ( $cols ) {
 	return $new;
 } );
 add_action( 'manage_project_posts_custom_column', function ( $col, $post_id ) {
+	if ( 'bo_featured' === $col ) {
+		echo '1' === get_post_meta( $post_id, 'bo_featured', true ) ? '<span class="dashicons dashicons-star-filled" style="color:#dba617" title="Uitgelicht"></span>' : '';
+	}
 	if ( in_array( $col, array( 'bo_place', 'bo_client' ), true ) ) {
 		echo esc_html( get_post_meta( $post_id, $col, true ) );
 	}
@@ -210,5 +242,8 @@ add_action( 'manage_project_posts_custom_column', function ( $col, $post_id ) {
 add_action( 'pre_get_posts', function ( $q ) {
 	if ( ! is_admin() && $q->is_main_query() && ( $q->is_post_type_archive( 'project' ) || $q->is_tax( 'installatietype' ) ) ) {
 		$q->set( 'posts_per_page', 12 );
+		foreach ( bo_project_order_args() as $k => $v ) {
+			$q->set( $k, $v );
+		}
 	}
 } );

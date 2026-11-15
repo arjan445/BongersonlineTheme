@@ -84,12 +84,12 @@ while ( have_posts() ) :
 			</div>
 
 			<?php
-			$bo_more = new WP_Query( array(
+			$bo_more = new WP_Query( array_merge( array(
 				'post_type'      => 'project',
 				'posts_per_page' => 3,
 				'post__not_in'   => array( get_the_ID() ),
 				'no_found_rows'  => true,
-			) );
+			), bo_project_order_args() ) );
 			if ( $bo_more->have_posts() ) :
 				?>
 				<div class="mt-5 pt-3">

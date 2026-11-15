@@ -86,7 +86,7 @@ endwhile;
 ?>
 
 <?php
-$bo_projects = new WP_Query( array( 'post_type' => 'project', 'posts_per_page' => 3, 'no_found_rows' => true ) );
+$bo_projects = new WP_Query( array_merge( array( 'post_type' => 'project', 'posts_per_page' => 3, 'no_found_rows' => true ), bo_project_order_args() ) );
 if ( $bo_projects->have_posts() ) :
 	?>
 	<section class="pb-5 home-projects">

@@ -11,6 +11,7 @@ Eigen thema voor [bongersonline.nl](https://bongersonline.nl), gebouwd op Bootst
   - Nieuwe handleidingen starten met een vaste opzet (blocksjabloon).
 - **Projecten**: berichttype `project` met taxonomie `installatietype` (`inc/projects.php`).
   - Per project een opdrachtgever, plaats, hoofdfoto en extra foto's (metabox "Projectgegevens"). De foto-volgorde kun je wijzigen door te slepen.
+  - Met het vinkje *Uitgelicht project* komt een project vooraan te staan (overzicht, homepage en "Meer projecten"); daarna nieuwste eerst.
   - Overzicht op `/projecten/` met een filter per type, losse projecten op `/project/<slug>/` met een lightbox. De homepage toont de drie nieuwste projecten.
 - **Opdrachtgevers**: berichttype `opdrachtgever` met naam, logo (uitgelichte afbeelding), optionele website en volgorde (`inc/clients.php`). Ze worden getoond als logoband op de homepage en onder de projecten; vanaf 5 logo's loopt de band door. Elders te plaatsen met de shortcode `[bo_opdrachtgevers titel="..."]`.
 - **Blokstijlen** voor de editor: *Stappen* (genummerde lijst), *Tip*, *Let op*, *Info*, *Vinkjes*, *Intro*.
