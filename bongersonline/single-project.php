@@ -80,7 +80,7 @@ while ( have_posts() ) :
 			<?php
 			$bo_more = new WP_Query( array_merge( array(
 				'post_type'      => 'project',
-				'posts_per_page' => 3,
+				'posts_per_page' => 4,
 				'post__not_in'   => array( get_the_ID() ),
 				'no_found_rows'  => true,
 			), bo_project_order_args() ) );

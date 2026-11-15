@@ -2,7 +2,7 @@
 $bo_types = bo_project_types();
 $bo_place = get_post_meta( get_the_ID(), 'bo_place', true );
 ?>
-<div class="col-sm-6 col-lg-4">
+<div class="col-sm-6 col-lg-3">
 	<article class="project-card h-100 position-relative">
 		<div class="project-thumb">
 			<?php
